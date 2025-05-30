@@ -5,7 +5,7 @@ import { formatChineseDateTime } from "@/lib/utils";
 interface ArticleHeaderProps {
   title: string;
   desc?: string;
-  publishDate: string;
+  publishDate?: string;
   location?: string;
   tags?: string[];
   collections?: string[];
@@ -19,16 +19,18 @@ export default function ArticleHeader({
   tags,
   collections,
 }: ArticleHeaderProps) {
-  const formattedDate = formatChineseDateTime(publishDate);
+  const formattedDate = publishDate ? formatChineseDateTime(publishDate) : null;
 
   return (
     <header className="mb-8">
       <h1 className="text-2xl font-bold leading-tight mb-4">{title}</h1>
       {desc && <p className="text-xs text-gray-600 mb-4">{desc}</p>}
 
-      <div className="text-gray-600 mb-4">
-        更新于 {formattedDate} {location}
-      </div>
+      {formattedDate && (
+        <div className="text-gray-600 mb-4">
+          更新于 {formattedDate} {location}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-2 mb-4">
         {tags &&
